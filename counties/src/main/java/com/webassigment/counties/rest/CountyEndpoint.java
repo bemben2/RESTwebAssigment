@@ -14,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.webassigment.counties.controller.CountyDao;
 import com.webassigment.counties.model.County;
@@ -39,16 +40,31 @@ public class CountyEndpoint {
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findById(@PathParam("id") final int id) {
-		//TODO: retrieve the county 
 		County county = countyDao.getById(id);
+		if (county == null) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
 		return Response.ok(county).build();
+	}
+	
+	@GET
+	@Path("/{name}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findByName(@PathParam("name") final String name) {
+		final List<County> counties = countyDao.getByName(name);
+		if (counties == null) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+		return Response.status(200).entity(counties).build();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listAll() {
-		//TODO: retrieve the counties 
 		final List<County> counties = countyDao.getAll();
+		if (counties == null) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
 		return Response.status(200).entity(counties).build();
 	}
 

@@ -8,15 +8,17 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "County.findAll", query = "SELECT c FROM County c") })
+@NamedQueries({ 
+@NamedQuery(name = "County.findAll", query = "SELECT c FROM County c"),
+@NamedQuery(name = "County.findByName", query = "SELECT c FROM County c WHERE c.name LIKE :name") })
 public class County implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int id;
 
-	@Column(name = "area_land")
-	private int areaLand;
+	@Column(name = "population")
+	private int population;
 
 	@Column(name = "area_rank")
 	private int areaRank;
@@ -24,8 +26,8 @@ public class County implements Serializable {
 	@Column(name = "area_total")
 	private int areaTotal;
 
-	@Column(name = "area_water")
-	private int areaWater;
+	@Column(name = "neighbours_no")
+	private int neighboursNo;
 
 	private String capital;
 
@@ -48,12 +50,12 @@ public class County implements Serializable {
 		this.id = id;
 	}
 
-	public int getAreaLand() {
-		return this.areaLand;
+	public int getPopulation() {
+		return this.population;
 	}
 
-	public void setAreaLand(int areaLand) {
-		this.areaLand = areaLand;
+	public void setPopulation(int population) {
+		this.population = population;
 	}
 
 	public int getAreaRank() {
@@ -72,12 +74,12 @@ public class County implements Serializable {
 		this.areaTotal = areaTotal;
 	}
 
-	public int getAreaWater() {
-		return this.areaWater;
+	public int getNeighbourNo() {
+		return this.neighboursNo;
 	}
 
-	public void setAreaWater(int areaWater) {
-		this.areaWater = areaWater;
+	public void setNeighbourNo(int neighbourNo) {
+		this.neighboursNo = neighbourNo;
 	}
 
 	public String getCapital() {

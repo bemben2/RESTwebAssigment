@@ -22,7 +22,7 @@ import com.webassigment.counties.model.County;
 import com.webassigment.counties.model.CountyHasNeighbour;
 
 @RequestScoped
-@Path("/countyhasneighbours")
+@Path("/neighbours")
 @Produces({ "application/xml", "application/json" })
 @Consumes({ "application/xml", "application/json" })
 public class CountyHasNeighbourEndpoint {
@@ -30,28 +30,8 @@ public class CountyHasNeighbourEndpoint {
 	@EJB
 	private CountyHasNeighbourDao countyHasNeighbourDao;
 	
-	@POST
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes("application/json")
-	public Response create(final CountyHasNeighbour countyHasNeighbour) {
-		countyHasNeighbourDao.update(countyHasNeighbour);
-		return Response.status(200).entity(countyHasNeighbour).build();
-	}
-
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes("application/json")
-	public Response findById(@PathParam("id") final int id) {
-		CountyHasNeighbour countyHasNeighbour = countyHasNeighbourDao.getById(id);
-		if (countyHasNeighbour == null) {
-			return Response.status(Status.NOT_FOUND).build();
-		}
-		return Response.ok(countyHasNeighbour).build();
-	}
-	
-	@GET
-	@Path("/neighbours/{id:[0-9][0-9]*}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response findNeigboursById(@PathParam("id") final int id) {
 		final List<County> counties = countyHasNeighbourDao.getNeighboursById(id);
@@ -60,28 +40,52 @@ public class CountyHasNeighbourEndpoint {
 		}
 		return Response.ok(counties).build();
 	}
-
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response listAll() {
-		final List<CountyHasNeighbour> countyHasNeighbours = countyHasNeighbourDao.getAll();;
-		return Response.status(200).entity(countyHasNeighbours).build();
-	}
-
-	@PUT
-	@Path("/{id:[0-9][0-9]*}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes("application/json")
-	public Response update(@PathParam("id") Long id, final CountyHasNeighbour countyHasNeighbour) {
-		countyHasNeighbourDao.update(countyHasNeighbour);
-		return Response.noContent().build();
-	}
-
-	@DELETE
-	@Path("/{id:[0-9][0-9]*}")
-	public Response deleteById(@PathParam("id") final int id) {
-		countyHasNeighbourDao.deleteById(id); 
-		return Response.noContent().build();
-	}
-
 }
+
+//	@GET
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	public Response listAll() {
+//		final List<CountyHasNeighbour> countyHasNeighbours = countyHasNeighbourDao.getAll();
+//		if (countyHasNeighbours == null) {
+//			return Response.status(Status.NOT_FOUND).build();
+//		}
+//		return Response.status(200).entity(countyHasNeighbours).build();
+//	}
+
+//	@GET
+//	@Path("/{id:[0-9][0-9]*}")
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	@Consumes("application/json")
+//	public Response findById(@PathParam("id") final int id) {
+//		CountyHasNeighbour countyHasNeighbour = countyHasNeighbourDao.getById(id);
+//		if (countyHasNeighbour == null) {
+//			return Response.status(Status.NOT_FOUND).build();
+//		}
+//		return Response.ok(countyHasNeighbour).build();
+//	}
+
+//	@PUT
+//	@Path("/{id:[0-9][0-9]*}")
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	@Consumes("application/json")
+//	public Response update(@PathParam("id") Long id, final CountyHasNeighbour countyHasNeighbour) {
+//		countyHasNeighbourDao.update(countyHasNeighbour);
+//		return Response.noContent().build();
+//	}
+
+//	@DELETE
+//	@Path("/{id:[0-9][0-9]*}")
+//	public Response deleteById(@PathParam("id") final int id) {
+//		countyHasNeighbourDao.deleteById(id); 
+//		return Response.noContent().build();
+//	}
+
+	
+//	@POST
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	@Consumes("application/json")
+//	public Response create(final CountyHasNeighbour countyHasNeighbour) {
+//		countyHasNeighbourDao.update(countyHasNeighbour);
+//		return Response.status(200).entity(countyHasNeighbour).build();
+//	}
+

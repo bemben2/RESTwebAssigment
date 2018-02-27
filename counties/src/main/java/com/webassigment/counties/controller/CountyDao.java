@@ -38,4 +38,10 @@ public class CountyDao {
 	public void update(County county) {
 		em.merge(county);
 	}
+
+	public List<County> getByName(String name) {
+		Query query = em.createNamedQuery("County.findByName", County.class);
+		query.setParameter("name", "%"+name+"%");
+		return query.getResultList();
+	}
 }
