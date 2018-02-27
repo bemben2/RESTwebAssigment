@@ -3,6 +3,8 @@ package com.webassigment.counties.rest;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,7 +23,8 @@ import com.webassigment.counties.controller.CountyHasNeighbourDao;
 import com.webassigment.counties.model.County;
 import com.webassigment.counties.model.CountyHasNeighbour;
 
-@RequestScoped
+@Stateless
+@LocalBean
 @Path("/neighbours")
 @Produces({ "application/xml", "application/json" })
 @Consumes({ "application/xml", "application/json" })
