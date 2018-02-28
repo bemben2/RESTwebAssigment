@@ -49,15 +49,12 @@ public class CountyEndpoint {
 		}
 		return Response.ok(county).build();
 	}
-	
+	 
 	@GET
 	@Path("/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findByName(@PathParam("name") final String name) {
 		final List<County> counties = countyDao.getByName(name);
-		if (counties == null) {
-			return Response.status(Status.NOT_FOUND).build();
-		}
 		return Response.status(200).entity(counties).build();
 	}
 
@@ -65,9 +62,6 @@ public class CountyEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listAll() {
 		final List<County> counties = countyDao.getAll();
-		if (counties == null) {
-			return Response.status(Status.NOT_FOUND).build();
-		}
 		return Response.status(200).entity(counties).build();
 	}
 
@@ -75,7 +69,7 @@ public class CountyEndpoint {
 	@Path("/{id:[0-9][0-9]*}")
 	@Consumes("application/json")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response update(@PathParam("id") Long id, final County county) {
+	public Response update(@PathParam("id") int id, final County county) {
 		countyDao.update(county);
 		return Response.noContent().build();
 	}

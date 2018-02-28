@@ -37,7 +37,7 @@ public class CountyHasNeighbourDao {
 	public List<CountyHasNeighbour> getAll() {
 		Query query = em.createNamedQuery("CountyHasNeighbour.findAll", CountyHasNeighbour.class);
 		return query.getResultList();
-	}
+	} 
 
 	public CountyHasNeighbour getById(int id) {
 		return em.find(CountyHasNeighbour.class, id);
@@ -45,7 +45,6 @@ public class CountyHasNeighbourDao {
 
 	public void create(CountyHasNeighbour countyHasNeighbour) {
 		em.persist(countyHasNeighbour);
-		
 	}
 
 	public void deleteById(int id) {
@@ -57,6 +56,4 @@ public class CountyHasNeighbourDao {
 		em.merge(countyHasNeighbour);
 	}
 
-	
-	
 }

@@ -38,9 +38,6 @@ public class CountyHasNeighbourEndpoint {
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response findNeigboursById(@PathParam("id") final int id) {
 		final List<County> counties = countyHasNeighbourDao.getNeighboursById(id);
-		if (counties == null) {
-			return Response.status(Status.NOT_FOUND).build();
-		}
 		return Response.ok(counties).build();
 	}
 }

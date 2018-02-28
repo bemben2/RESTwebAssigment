@@ -24,6 +24,7 @@ import com.webassigment.counties.model.CountyHasNeighbour;
 import com.webassigment.counties.rest.CountyEndpoint;
 import com.webassigment.counties.rest.CountyHasNeighbourEndpoint;
 import com.webassigment.counties.rest.RestApplication;
+import com.webassigment.counties.utils.UtilsDAO;
 
 @RunWith(Arquillian.class)
 public class CountiesIntegrationTest {
@@ -33,7 +34,7 @@ public class CountiesIntegrationTest {
 				.create(JavaArchive.class, "CountiesIntegrationTest.jar")
 				.addClasses(County.class, CountyDao.class, CountyEndpoint.class, 
 						CountyHasNeighbourEndpoint.class, CountyHasNeighbour.class, 
-						CountyHasNeighbourDao.class, RestApplication.class)
+						CountyHasNeighbourDao.class, RestApplication.class, UtilsDAO.class)
 				.addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
@@ -41,37 +42,111 @@ public class CountiesIntegrationTest {
 	private CountyEndpoint countyEndpoint;
 	@EJB
 	private CountyDao countyDao;
-	
+	@EJB
+	private UtilsDAO utilsDao;
 	@EJB
 	private CountyHasNeighbourEndpoint countyHasNeighbourEndpoint;
 	
 	@Before
 	public void setUp() {
-		//this function means that we start with an empty table
-		//And add one wine
-		//it should be possible to test with an in memory db for efficiency
-		//utilsDAO.deleteTable();
-//		County county = new County();
-//		county.setAreaRank(11);
-//		county.setAreaTotal(2332);
-//		county.setCapital("Navan");
-//		county.setId(1);
-//		county.setFlag("metah.jpg");
-//		county.setName("Meath");
-//		county.setNeighbourNo(5);
-//		county.setMotto("Together forever");
-//		county.setPopulation(123432);
-//		county.setProvince("Lenister");
-//		
-//		countyDao.create(county);
+		utilsDao.deleteTable();
+		County county = new County();
+		county.setId(1);
+		county.setAreaRank(11);
+		county.setAreaTotal(2332);
+		county.setCapital("Navan");
+		county.setFlag("metah.jpg");
+		county.setName("Meath");
+		county.setNeighbourNo(5);
+		county.setMotto("Together forever");
+		county.setPopulation(123432);
+		county.setProvince("Lenister");
+		countyDao.create(county);
 	}
 		@Test
-		public void testGetAllCounties() {
+		public void testGETAllCounties() {
 			Response response = countyEndpoint.listAll();
-			response.getEntity();
 			List<County> list = (List<County>) response.getEntity();
-			assertEquals("Get all data", list.size(), 6);
-			assertEquals("Get all data", response.getStatus(), 200);
+			assertEquals( 1, list.size());
+			assertEquals( 200, response.getStatus());
 		}
 	
+		@Test
+		public void testGETCountyById() {
+			Response response = countyEndpoint.findById(1);
+			County county = (County) response.getEntity();
+			assertEquals(county.getId(), 1);
+			assertEquals(200,response.getStatus());
+			
+		}
+		
+		@Test
+		public void testGETCountyByInvalidId() {
+			Response response = countyEndpoint.findById(7);
+			County county = (County) response.getEntity();
+			assertEquals(404, response.getStatus());
+			
+		}
+		@Test
+		public void testGETCountyByName() {
+			Response response = countyEndpoint.findByName("Meath");
+			List<County> list = (List<County>) response.getEntity();
+			assertEquals(1, list.size());
+			assertEquals(200, response.getStatus());
+		}
+		
+		@Test
+		public void testGETCountyByInvalidName() {
+			Response response = countyEndpoint.findByName("X");
+			List<County> list = (List<County>) response.getEntity();
+			assertEquals(0, list.size());
+			assertEquals(200, response.getStatus());
+		}
+		
+		@Test
+		public void testDELETCountyByID() {
+			Response response = countyEndpoint.deleteById(1);
+			List<County> list = (List<County>) countyEndpoint.listAll().getEntity();
+			assertEquals(0, list.size());
+			assertEquals(204, response.getStatus());
+		}
+		@Test
+		public void testPUTCountyUpdate() {
+			County county = new County();
+			county.setAreaRank(11);
+			county.setAreaTotal(2332);
+			county.setCapital("Antrim");
+			county.setId(1);
+			county.setFlag("antrim.jpg");
+			county.setName("Antrim");
+			county.setNeighbourNo(5);
+			county.setMotto("Through Trial to Triumphs");
+			county.setPopulation(123432);
+			county.setProvince("UlsterUPDATED");
+			
+			Response response = countyEndpoint.update(11, county);
+//			County county2 = (County) response.getEntity();;
+//			assertEquals(county.getId(), county2.getId());
+//			assertEquals(county.getProvince(), county2.getProvince());
+			assertEquals( 204, response.getStatus());
+		}
+		@Test
+		public void testPOSTCounty() {
+			County county = new County();
+			county.setAreaRank(11);
+			county.setAreaTotal(2332);
+			county.setCapital("Antrim");
+			county.setId(2);
+			county.setFlag("antrim.jpg");
+			county.setName("Antrim");
+			county.setNeighbourNo(5);
+			county.setMotto("Through Trial to Triumphs");
+			county.setPopulation(123432);
+			county.setProvince("Ulster");
+			Response response = countyEndpoint.create(county);
+			County county2 = (County) response.getEntity();;
+			assertEquals(county.getId(), county2.getId());
+			assertEquals( response.getStatus(), 200);
+		}
+
 }
