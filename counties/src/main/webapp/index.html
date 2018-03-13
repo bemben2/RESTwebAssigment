@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Hello, world!</title>
+<!-- Bootstrap CSS 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+-->
+
+<!-- Bootstrap core CSS-->
+<link href="./resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom fonts for this template-->
+<link href="./resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!-- Page level plugin CSS-->
+<link href="./resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="./resources/css/sb-admin.css" rel="stylesheet"> 
+<link href="./resources/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+	<ul class="nav nav-tabs" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" href="#home" role="tab" data-toggle="tab">home</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#counties" role="tab" data-toggle="tab">counties</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#admin" role="tab" data-toggle="tab" id="nav_admin">admin</a>
+		</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane fade in active" id="home">home</div>
+
+		<div role="tabpanel" class="tab-pane fade" id="counties">counties</div>
+
+		<div role="tabpanel" class="tab-pane fade" id="admin"></div>
+	</div>
+	<!-- Modal -->
+	<div id="editUserModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Edit County</h4>
+				</div>
+					<div class="modal-body">
+						<form>
+						<label for="in_id">Id</label></br>
+						<input id="in_id" disabled="disabled" type="text"></br>
+						
+						<label for="in_name">Name</label></br>
+						<input id="in_name"type="text"></br>
+						
+						<label for="in_province">Province</label></br>
+						<input id="in_province"type="text"></br>
+						
+						<label for="in_capital">Capital</label></br>
+						<input id="in_capital"type="text"></br>
+	
+						<label for="in_motto">Motto</label></br>
+						<input id="in_motto"type="text"></br>
+						
+						<label for="in_flag">Flag</label></br>
+						<input id="in_flag"type="text"></br>
+	
+						<label for="in_population">Population</label></br>
+						<input id="in_population" type="text"></br>
+						
+						<label for="in_areaRank">Area Rank</label></br>
+						<input id="in_areaRank"type="text"></br>
+						
+						<label for="in_areaTotal">Area Total</label></br>
+						<input id="in_areaTotal"type="text"></br>
+						
+						<label for="in_neighbourNo">Neighbours No</label></br>
+						<input id="in_neighbourNo"type="text"></br>
+						<div>
+							<button class="btn btn-default" type="reset">Clear</button>
+							<button onclick="updateCounty()" class="btn btn-default" type="button">Update</button>
+							<button onclick="saveCounty()" class="btn btn-default" type="button">New</button>
+						</div>
+						</form>
+	
+					</div>
+				<div class="modal-footer">
+					<button onclick="showCountiesTable()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Bootstrap core JavaScript-->
+	<script type="text/javascript" src="./resources/vendor/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="./resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script type="text/javascript" src="./resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Page level plugin JavaScript-->
+	<script type="text/javascript" src="./resources/vendor/chart.js/Chart.min.js"></script>
+	<script type="text/javascript" src="./resources/vendor/datatables/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="./resources/vendor/datatables/dataTables.bootstrap4.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script type="text/javascript" src="./resources/js/sb-admin.js"></script>
+	<script type="text/javascript" src="./resources/js/sb-admin-datatables.js"></script>
+	<script type="text/javascript" src="./resources/js/sb-admin-charts.js"></script>
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+	<script type="text/javascript" src="./resources/js/counties.js"></script>
+
+</body>
+</html>
