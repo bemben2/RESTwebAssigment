@@ -19,20 +19,19 @@
 <!-- Custom styles for this template-->
 <link href="./resources/css/sb-admin.css" rel="stylesheet"> 
 <link href="./resources/css/jquery.dataTables.min.css" rel="stylesheet">
-
-
+<link href="./resources/css/counties.css" rel="stylesheet">
 
 </head>
 <body>
 	<ul class="nav nav-tabs" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link active" href="#home" role="tab" data-toggle="tab">home</a>
+			<a onclick="showCountiesTable();" class="nav-link active" href="#home" role="tab" data-toggle="tab" id="nav_home" >home</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#counties" role="tab" data-toggle="tab">counties</a>
+			<a onclick="renderList();" class="nav-link" href="#counties" role="tab" data-toggle="tab" id="nav_counties" >counties</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#admin" role="tab" data-toggle="tab" id="nav_admin">admin</a>
+			<a onclick="showCountiesTable();" class="nav-link" href="#admin" role="tab" data-toggle="tab" id="nav_admin">admin</a>
 		</li>
 	</ul>
 
@@ -40,7 +39,11 @@
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane fade in active" id="home">home</div>
 
-		<div role="tabpanel" class="tab-pane fade" id="counties">counties</div>
+		<div role="tabpanel" class="tab-pane fade" id="counties">
+			<div class="container-fluid">
+				<div id="countiesList"></div>
+			</div>
+		</div>
 
 		<div role="tabpanel" class="tab-pane fade" id="admin"></div>
 	</div>
@@ -51,53 +54,50 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Edit County</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 					<div class="modal-body">
 						<form>
-						<label for="in_id">Id</label></br>
-						<input id="in_id" disabled="disabled" type="text"></br>
-						
-						<label for="in_name">Name</label></br>
-						<input id="in_name"type="text"></br>
-						
-						<label for="in_province">Province</label></br>
-						<input id="in_province"type="text"></br>
-						
-						<label for="in_capital">Capital</label></br>
-						<input id="in_capital"type="text"></br>
-	
-						<label for="in_motto">Motto</label></br>
-						<input id="in_motto"type="text"></br>
-						
-						<label for="in_flag">Flag</label></br>
-						<input id="in_flag"type="text"></br>
-	
-						<label for="in_population">Population</label></br>
-						<input id="in_population" type="text"></br>
-						
-						<label for="in_areaRank">Area Rank</label></br>
-						<input id="in_areaRank"type="text"></br>
-						
-						<label for="in_areaTotal">Area Total</label></br>
-						<input id="in_areaTotal"type="text"></br>
-						
-						<label for="in_neighbourNo">Neighbours No</label></br>
-						<input id="in_neighbourNo"type="text"></br>
-						<div>
-							<button class="btn btn-default" type="reset">Clear</button>
-							<button onclick="updateCounty()" class="btn btn-default" type="button">Update</button>
-							<button onclick="saveCounty()" class="btn btn-default" type="button">New</button>
-						</div>
-						</form>
-	
-					</div>
-				<div class="modal-footer">
-					<button onclick="showCountiesTable()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
+							<label for="in_id">Id</label><br>
+							<input id="in_id" disabled="disabled" type="text"><br>
+							
+							<label for="in_name">Name</label><br>
+							<input id="in_name" type="text"><br>
+							
+							<label for="in_province">Province</label><br>
+							<input id="in_province" type="text"><br>
+							
+							<label for="in_capital">Capital</label><br>
+							<input id="in_capital" type="text"><br>
+		
+							<label for="in_motto">Motto</label><br>
+							<input id="in_motto" type="text"><br>
+							
+							<label for="in_flag">Flag</label><br>
+							<input id="in_flag" type="text"><br>
+		
+							<label for="in_population">Population</label><br>
+							<input id="in_population" type="text"><br>
+							
+							<label for="in_areaRank">Area Rank</label><br>
+							<input id="in_areaRank" type="text"><br>
+							
+							<label for="in_areaTotal">Area Total</label><br>
+							<input id="in_areaTotal" type="text"><br>
+							
+							<label for="in_neighbourNo">Neighbours No</label><br>
+							<input id="in_neighbourNo" type="text"><br>
 
+								<div class="modal-footer">
+								<button class="btn btn-default" type="reset">Clear</button>
+								<button onclick="updateCounty()" class="btn btn-default" type="button">Update</button>
+								<button onclick="saveCounty()" class="btn btn-default" type="button">New</button>
+								<button onclick="showCountiesTable()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+					</div>
+			</div>
 		</div>
 	</div>
 	<!-- Bootstrap core JavaScript-->

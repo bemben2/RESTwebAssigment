@@ -1,9 +1,67 @@
 var apiUrlCouties = "http://localhost:8080/counties/rest/counties";
-$(document).ready(function() {
-	console.log("HEJ");
-	$('#nav_admin').on("click", showCountiesTable());
 
-});
+//$(document).ready(function() {
+//	console.log("HEJ");
+////	$('#nav_home').on("click", renderList());
+////	$('#nav_admin').on("click", showCountiesTable());
+//
+//});
+
+//population
+//areaRank
+//areaTotal
+//capital
+//flag
+//motto
+//name
+//province
+//neighbourNo
+
+function createCard(county) {
+	var imageSRC = './resources/images/' + county.flag;
+	var card = ''
+		+'<div class="col-sm-6 col-md-4 col-lg-3">'
+		+'	<div class="card">'
+		+'		<div class="card-body">'
+		+'			<p><strong> '+ county.name+'</strong></p>'
+		+'			<img class="card_img" src="' + imageSRC + '" alt="' + county.name + '">'
+		+'			<p><em>"'+ county.motto+'"</em></p>'
+		+'			<ul>'				
+		+'			<li>Province: '+ county.province+'</li>'
+		+'			<li>Capital: '+ county.capital+'</li>'
+		+'			<li>Population: '+ county.population+'</li>'
+		+'			<li>Area Total: '+ county.areaTotal+'</li>'
+		+'			<li>Area Rank: '+ county.areaRank+'</li>'
+		+'			<li><strong>Neighbour No: '+ county.neighbourNo+'</strong></li>'
+		+'			</ul>'				
+		+'		</div>'
+		+'	</div>'
+		+'</div>';
+	;
+	return card;
+}
+
+
+function renderList() {
+	console.log("renderList2");
+	$('#countiesList').html("");
+	$.ajax({
+		type : 'GET',
+		url : apiUrlCouties,
+		dataType : "json",
+		destroy : true,
+		success : function(data) {
+			output = '<div class="row">';
+			$.each(data, function(index, county) {
+				output += createCard(county);
+				
+			});
+			output += '</div>';
+			$('#countiesList').append(output);
+		}
+
+	});
+}
 
 function showCountiesTable() {
 	insertTable();
@@ -40,18 +98,19 @@ function showCountiesTable() {
 				}, {
 					className : "center",
 					render : function(data, type, row) {
-						return "<button onClick=\"editCounty(" + row.id + ")\" data-toggle=\"modal\" data-target=\"#editUserModal\" value=\"Edit\">Edit</button>";
+						return "<button class=\"btn btn-default\" onClick=\"editCounty(" + row.id + ")\" data-toggle=\"modal\" data-target=\"#editUserModal\" value=\"Edit\">Edit</button>";
 					},
 				}, {
 					className : "center",
 					render : function(data, type, row) {
-						return "<button onClick=\"deleteCounty(" + row.id + ")\" value=\"Delete\">Delete</button>";
+						return "<button class=\"btn btn-default\" onClick=\"deleteCounty(" + row.id + ")\" value=\"Delete\">Delete</button>";
 					},
 				} ]
 			})
 		}
 	});
 }
+
 
 function saveCounty(){
 	console.log("New County");
@@ -160,8 +219,8 @@ function insertTable() {
 			+'				<th>Area Rank</th>'
 			+'				<th>Area Total</th>'
 			+'				<th>Capital</th>'
-			+'				<th>Flag</th>'
 			+'				<th>Motto</th>'
+			+'				<th>Flag</th>'
 			+'				<th>Name</th>'
 			+'				<th>Province</th>'
 			+'				<th>Neighbours No</th>'
@@ -177,8 +236,8 @@ function insertTable() {
 			+'				<th>Area Rank</th>'
 			+'				<th>Area Total</th>'
 			+'				<th>Capital</th>'
-			+'				<th>Flag</th>'
 			+'				<th>Motto</th>'
+			+'				<th>Flag</th>'
 			+'				<th>Name</th>'
 			+'				<th>Province</th>'
 			+'				<th>Neighbours No</th>'
